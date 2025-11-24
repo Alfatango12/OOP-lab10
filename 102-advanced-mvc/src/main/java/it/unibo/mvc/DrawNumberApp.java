@@ -1,10 +1,14 @@
 package it.unibo.mvc;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 
  */
 public final class DrawNumberApp implements DrawNumberViewObserver {
     private static final int MIN = 0;
@@ -13,6 +17,7 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
 
     private final DrawNumber model;
     private final List<DrawNumberView> views;
+    private final Configuration conf = configure();
 
     /**
      * @param views
@@ -60,6 +65,12 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         System.exit(0);
     }
 
+    private Configuration configure() throws Throwable {
+        var cl = getClass().getClassLoader();
+        var configFile = new BufferedReader(new InputStreamReader(cl.getResourceAsStream("config.yml"), StandardCharsets.UTF_8));
+        return null;
+    }
+
     /**
      * @param args
      *            ignored
@@ -68,5 +79,4 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
     public static void main(final String... args) throws FileNotFoundException {
         new DrawNumberApp(new DrawNumberViewImpl());
     }
-
 }
